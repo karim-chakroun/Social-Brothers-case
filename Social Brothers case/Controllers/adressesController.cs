@@ -52,19 +52,33 @@ namespace Social_Brothers_case.Controllers
         //get with filter
         [HttpGet]
         [Route("filters")]
-        public async Task<ActionResult<IEnumerable<adress>>> GetAdressesWithFilter(string filter)
+        public async Task<ActionResult<IEnumerable<adress>>> GetAdressesWithFilter(string filter,bool desc,string? atribute)
         {
-            return await _context.adress.Where(a => a.country.Contains(filter) ||
+            //get all
+            var getAll= await _context.adress.ToListAsync();
+            var result = new List<adress>();
 
-            a.zipCode.Contains(filter) ||
-            a.city.Contains(filter) ||
-            a.street.Contains(filter) ||
-            a.houseNumber.ToString().Contains(filter))
-                .OrderBy(a=>a.country)
-                .ToListAsync();
+            
+            PropertyInfo[] properties = typeof(adress).GetProperties();
+
+            foreach (PropertyInfo property in properties)
+            {
+                //get property of type adress
+
+                result.AddRange(getAll.FindAll(delegate (adress a)
+                {
+                    return ReflectPropertyValue(a, property.Name).ToString()
+                    .Contains(filter);
+                }));
+
+            }
+
+            
+
+            return result;
 
 
-
+            
         }
 
         // GET: api/adresses/5
