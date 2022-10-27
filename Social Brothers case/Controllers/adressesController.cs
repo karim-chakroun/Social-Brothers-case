@@ -51,13 +51,12 @@ namespace Social_Brothers_case.Controllers
 
         //get with filter
         [HttpGet]
-        [Route("filters")]
+        [Route("Filters")]
         public async Task<ActionResult<IEnumerable<adress>>> GetAdressesWithFilter(string filter,bool desc,string? atribute)
         {
+            //get all
             var getAll = await _context.adress
                 .ToListAsync();
-            
-            //get all
 
             var result = new List<adress>();
 
@@ -68,11 +67,6 @@ namespace Social_Brothers_case.Controllers
             foreach (PropertyInfo property in properties)
             {
                 //get property of type adress
-                if (property.ToString()== atribute)
-                {
-
-                }
-
                 result.AddRange(getAll.FindAll(delegate (adress a)
                 {
                     return ReflectPropertyValue(a, property.Name).ToString()
@@ -83,17 +77,18 @@ namespace Social_Brothers_case.Controllers
 
             if (desc)
             {
-                return result.OrderByDescending(x => propertyInfo.GetValue(x, null)).ToList();
+                return result.Distinct()
+                    .OrderByDescending(x => propertyInfo.GetValue(x, null)).ToList();
 
             }
             else if (desc==false)
             {
-                return result.OrderBy(x => propertyInfo.GetValue(x, null)).ToList();
+                return result.Distinct()
+                    .OrderBy(x => propertyInfo.GetValue(x, null)).ToList();
             }
 
-            return result.OrderBy(x=>propertyInfo.GetValue(x, null)).ToList();
-
-
+            return result.Distinct()
+                .OrderBy(x=>propertyInfo.GetValue(x, null)).ToList();
             
         }
 
