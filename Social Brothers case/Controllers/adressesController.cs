@@ -54,16 +54,24 @@ namespace Social_Brothers_case.Controllers
         [Route("filters")]
         public async Task<ActionResult<IEnumerable<adress>>> GetAdressesWithFilter(string filter,bool desc,string? atribute)
         {
+            var getAll = await _context.adress
+                .ToListAsync();
+            
             //get all
-            var getAll= await _context.adress.ToListAsync();
+
             var result = new List<adress>();
 
-            
+             //string prop;
+            var propertyInfo = typeof(adress).GetProperty(atribute);
             PropertyInfo[] properties = typeof(adress).GetProperties();
 
             foreach (PropertyInfo property in properties)
             {
                 //get property of type adress
+                if (property.ToString()== atribute)
+                {
+
+                }
 
                 result.AddRange(getAll.FindAll(delegate (adress a)
                 {
@@ -73,9 +81,17 @@ namespace Social_Brothers_case.Controllers
 
             }
 
-            
+            if (desc)
+            {
+                return result.OrderByDescending(x => propertyInfo.GetValue(x, null)).ToList();
 
-            return result;
+            }
+            else if (desc==false)
+            {
+                return result.OrderBy(x => propertyInfo.GetValue(x, null)).ToList();
+            }
+
+            return result.OrderBy(x=>propertyInfo.GetValue(x, null)).ToList();
 
 
             
