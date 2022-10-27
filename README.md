@@ -1,7 +1,7 @@
 
 # Social Brothers case
 
-In this assignment i have made a small application where you (add/read/edit/edit) addresses with the possibility to use filters and to sort data dynamically.
+In this assignment i have made a small application where you (Add/Read/Edit/Delete) addresses with the possibility to use filters and to sort data dynamically.
 You have also the possibility to calculate distances between two addresses.
 
 
