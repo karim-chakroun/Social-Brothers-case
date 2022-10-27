@@ -24,7 +24,7 @@ using static NuGet.Client.ManagedCodeConventions;
 
 namespace Social_Brothers_case.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class adressesController : ControllerBase
     {
@@ -42,26 +42,29 @@ namespace Social_Brothers_case.Controllers
         }
 
         // GET: api/adresses
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<adress>>> Getadress()
-        {
-            return await _context.adress.ToListAsync();
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<adress>>> Getadress()
+        //{
+        //    return await _context.adress.ToListAsync();
+        //}
 
 
         //get with filter
         [HttpGet]
-        [Route("Filters")]
-        public async Task<ActionResult<IEnumerable<adress>>> GetAdressesWithFilter(string filter,bool desc,string? atribute)
+        //[Route("Filters")]
+        public async Task<ActionResult<IEnumerable<adress>>> GetAdressesWithFilter(string? filter,bool desc,string? atribute)
         {
+            if (filter == null)
+            {
+                return await _context.adress.ToListAsync();
+            }
             //get all
             var getAll = await _context.adress
                 .ToListAsync();
+            
 
             var result = new List<adress>();
 
-             //string prop;
-            var propertyInfo = typeof(adress).GetProperty(atribute);
             PropertyInfo[] properties = typeof(adress).GetProperties();
 
             foreach (PropertyInfo property in properties)
@@ -75,7 +78,9 @@ namespace Social_Brothers_case.Controllers
 
             }
 
-            if (desc)
+            var propertyInfo = typeof(adress).GetProperty(atribute);
+
+            if (desc==true)
             {
                 return result.Distinct()
                     .OrderByDescending(x => propertyInfo.GetValue(x, null)).ToList();
@@ -88,7 +93,7 @@ namespace Social_Brothers_case.Controllers
             }
 
             return result.Distinct()
-                .OrderBy(x=>propertyInfo.GetValue(x, null)).ToList();
+                .ToList();
             
         }
 
