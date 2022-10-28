@@ -5,14 +5,15 @@ In this assignment i have made a small application where you (Add/Read/Edit/Dele
 You have also the possibility to calculate distances between two addresses.
 
 
-## Run Locally
+## Requirements
 
-Clone the project
+- Clone the project
 
 ```bash
   git clone https://github.com/karim-chakroun/Social-Brothers-case
 ```
-
+- Install Visual Studio 2022
+- Install .NET Core
 
 
 
@@ -48,6 +49,6 @@ Here is the link: https://localhost:7114/swagger/index.html
 
 ## Feedback
 
-😄 I'm proud of the dynamic filter and sorting part. It was a great challenge for me, first I made a static filter. You can check it in the first commit but then I made it.
+😄 I'm proud of the dynamic filter and sorting part. At first I made a static filter then i succeeded to make the dynamic one. It was a great challenge for me. You can check the static one in the first commit.
 
-🤔 The code can be better. There is a bug if you try putting a filter without a sorting attribute you will have error 500. It needs to be fixed but I didn't have time to finish it but I think that I made it through the hard part.
+🤔 The code can be better. There is a bug if you try putting a filter without a sorting attribute: you will have error 500. It needs to be fixed but I didn't have time to finish it. I think that I made it through the hard part. Alot of improvements can be made.
