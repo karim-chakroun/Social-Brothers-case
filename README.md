@@ -39,7 +39,7 @@ Here is the link: https://localhost:7114/swagger/index.html
 
 #### You can filter the addresses by :
 - Typing the keyword in the filter field.
-- Typing the attribute you wanna order by (country,street,id,houseNumber,zipCode,city or you can add a new attribute and name it) in the attribute field.
+- Typing the attribute you wanna sort by (country,street,id,houseNumber,zipCode,city or you can add a new attribute and name it) in the attribute field.
 - Chosing the desc field as true or false( true means descending and false means ascending sort).
 
 
